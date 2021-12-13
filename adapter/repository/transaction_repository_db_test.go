@@ -10,7 +10,7 @@ import (
 
 func TestTransactionRepository_DbInsert(t *testing.T) {
 	migrationsDir := os.DirFS("fixture/sql")
-	db := fixture.Up(migrationsDir)
+	db := fixture.Up(migrationsDir, true)
 	defer fixture.Down(db, migrationsDir)
 
 	repository := NewTransactionRepositoryDb(db)

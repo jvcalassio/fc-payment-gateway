@@ -9,8 +9,11 @@ import (
 	"log"
 )
 
-func Up(migrationsDir fs.FS) *sql.DB {
-	db, err := sql.Open("sqlite3", ":memory:")
+func Up(migrationsDir fs.FS, memory bool) *sql.DB {
+	db, err := sql.Open("sqlite3", "transactions.db")
+	if memory {
+		db, err = sql.Open("sqlite3", ":memory:")
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

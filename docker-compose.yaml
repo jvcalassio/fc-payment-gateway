@@ -3,10 +3,25 @@ version: '3'
 services:
   app:
     build: .
-    entrypoint: go run cmd/main.go
+    entrypoint: wait-for gatewaydb:3306 -t 40 -- go run cmd/main.go
     volumes:
       - .:/go/src
     extra_hosts:
       - "host.docker.internal:172.17.0.1"
     environment:
       - BOOTSTRAP_SERVERS=host.docker.internal:9094
+      - MYSQL_HOST=gatewaydb
+      - MYSQL_DATABASE=gateway
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=root
+    depends_on:
+      - gatewaydb
+
+  gatewaydb:
+    build: ./.docker/mysql
+    tty: true
+    volumes:
+      - ./.docker/dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=gateway
+      - MYSQL_ROOT_PASSWORD=root

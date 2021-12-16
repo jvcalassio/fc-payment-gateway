@@ -28,3 +28,17 @@ São consideradas as seguintes regras para validar uma transação:
 - O cartão de crédito utilizado deve ser válido:
   - Não pode estar vencido (data e ano > data e ano atual)
   - O número deve ser válido
+
+## Execução
+
+Para o correto funcionamento do serviço, é necessário que o Apache Kafka esteja devidamente configurado e em execução.
+
+Assim, é recomendável seguir as [instruções do repositório principal](https://github.com/jvcalassio/fc-payment-system#execu%C3%A7%C3%A3o-em-desenvolvimento).
+
+Caso queira executar apenas este serviço, basta clonar o repositório e utilizar o docker compose:
+
+```
+docker-compose up --build
+```
+
+O serviço entrará em execução, esperando por pagamentos recebidos pelo Kafka.
